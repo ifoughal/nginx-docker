@@ -1,0 +1,32 @@
+server {
+    listen 80;
+    server_name ${DOMAIN};
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+# SSL Configuration
+server {
+    listen 443 ssl;
+    server_name ${DOMAIN};
+
+    ssl_certificate /etc/nginx/ssl/${SITE_NAME}.crt;
+    ssl_certificate_key /etc/nginx/ssl/${SITE_NAME}.key;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+        set $backend "http://${HOST_ADDRESS}:${PORT}";
+        proxy_pass $backend;
+        # proxy_set_header X-Forwarded-Host $http_host;
+        # proxy_set_header X-Real-IP $remote_addr;
+        # proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    access_log off;
+    error_log  /var/log/nginx/error.log error;
+}

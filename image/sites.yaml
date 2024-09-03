@@ -1,0 +1,13 @@
+sites:
+    defguard:
+        domain: defguard.arakeen.lan
+        port: 8000
+    defguard-enroll:
+        domain: enroll.arakeen.lan
+        port: 8080
+    netbox:
+        domain: netbox.arakeen.lan
+        port: 8180
+    jenkins:
+        domain: jenkins.arakeen.lan
+        port: 8280
