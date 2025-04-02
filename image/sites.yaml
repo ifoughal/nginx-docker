@@ -16,10 +16,10 @@ sites:
     netbox:
         address: netbox
         domain: netbox.arakeen.lan
-        template: default.conf.template
+        template: netbox.conf.example
         port: 8180
     jenkins:
         address: jenkins-master
         domain: jenkins.arakeen.lan
-        template: default.conf.template
+        template: jenkins.conf.example
         port: 8280
