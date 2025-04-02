@@ -1,3 +1,4 @@
+#!/opt/venv/bin/python3
 #!/usr/bin/env python3
 
 import yaml
@@ -39,11 +40,16 @@ def generate_cert(domain, cert_path, key_path):
 
 if __name__ == "__main__":
     sites = load_yaml(file_path=sites_path).get('sites', {})
-    sites_config = Template(load_file(file_path=template_path))
 
     for site_name, site_info in sites.items():
+        address = site_info['address']
         domain = site_info['domain']
         port = site_info['port']
+        sites_config = Template(
+            load_file(
+                file_path=site_info.get('template', template_path)
+            )
+        )
 
         # Define paths for SSL certificate and key
         cert_path = f"/etc/nginx/ssl/{site_name}.crt"
@@ -57,7 +63,7 @@ if __name__ == "__main__":
         nginx_conf = sites_config.safe_substitute({
             'DOMAIN': domain,
             'SITE_NAME': site_name,
-            'HOST_ADDRESS': os.environ.get("HOST_ADDRESS", domain),  # defaulting to domain if HOST_ADDRESS not set
+            'HOST_ADDRESS': address,
             'PORT': str(port)
         })
 
