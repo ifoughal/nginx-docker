@@ -1,13 +1,25 @@
 sites:
+    nextJsAPP:
+        address: nextJS-front
+        domain: nextJSAPP.arakeen.lan
+        template: node-js.conf.template
+        port: 3000
     defguard:
+        address: defguard-front
         domain: defguard.arakeen.lan
+        template: default.conf.template
         port: 8000
     defguard-enroll:
         domain: enroll.arakeen.lan
+        template: default.conf.template
         port: 8080
     netbox:
+        address: netbox
         domain: netbox.arakeen.lan
+        template: netbox.conf.example
         port: 8180
     jenkins:
+        address: jenkins-master
         domain: jenkins.arakeen.lan
+        template: jenkins.conf.example
         port: 8280
